@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>autonomous_car_msgs</name>
+  <name>autonomous_car_arduino_msgs</name>
   <version>1.0.0</version>
   <description>The autonomous_car_msgs package</description>
 
