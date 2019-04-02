@@ -8,8 +8,9 @@ project(autonomous_car_arduino_msgs)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  ackermann_msgs
   std_msgs
+  ackermann_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -53,12 +54,8 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 add_message_files(
-  ArduinoCommand
+  FILES
   ArduinoCommand.msg
-)
-
-add_message_files{
-  ArduinoReport
   ArduinoReport.msg
 )
 
@@ -77,10 +74,11 @@ add_message_files{
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   ackermann_msgs#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  ackermann_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -114,7 +112,7 @@ add_message_files{
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES autonomous_car_msgs
-#  CATKIN_DEPENDS ackermann_msgs roscpp std_msgs
+  CATKIN_DEPENDS message_runtime std_msgs ackermann_msgs
 #  DEPENDS system_lib
 )
 
