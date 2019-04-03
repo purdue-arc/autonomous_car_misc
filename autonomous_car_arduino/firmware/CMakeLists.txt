@@ -10,3 +10,9 @@ generate_arduino_firmware(hello
   BOARD leonardo
   PORT /dev/ttyACM0
 )
+
+generate_arduino_firmware(hardwareControl
+  SRCS hardwareControl.cpp ${ROS_LIB_DIR}/time.cpp
+  BOARD mini328
+  PORT /dev/ttyACM0   # Update later
+)

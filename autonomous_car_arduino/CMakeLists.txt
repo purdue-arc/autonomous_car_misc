@@ -4,6 +4,7 @@ project(autonomous_car_arduino)
 find_package(catkin REQUIRED COMPONENTS
   rosserial_arduino
   rosserial_client
+  std_msgs
   autonomous_car_arduino_msgs
 )
 
@@ -19,5 +20,5 @@ rosserial_configure_client(
   TOOLCHAIN_FILE ${ROSSERIAL_ARDUINO_TOOLCHAIN}
 )
 
-rosserial_add_client_target(firmware hello ALL)
-rosserial_add_client_target(firmware hello-upload)
+rosserial_add_client_target(firmware hardwareControl ALL)
+rosserial_add_client_target(firmware hardwareControl-upload)

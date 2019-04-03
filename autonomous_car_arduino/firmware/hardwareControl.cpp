@@ -4,9 +4,23 @@
 
 #include <Arduino.h>
 
+void commandCallback(const autonomous_car_arduino_msgs::ArduinoCommand& msg_command)
+{
+  // Do something
+}
+
+void populateReport(autonomous_car_arduino_msgs::ArduinoReport *msg_report)
+{
+  // Do something
+  msg_report->drive_battery_voltage = 0.0;
+  msg_report->computer_battery_voltage = 0.0;
+}
+
+// ROS stuff
 ros::NodeHandle nh;
-ros::Publisher reportPub;
-ros::Subscriber commandSub;
+autonomous_car_arduino_msgs::ArduinoReport msg_report;
+ros::Subscriber<autonomous_car_arduino_msgs::ArduinoCommand> commander("hardwareCommand", commandCallback);
+ros::Publisher reporter("hardwareReport", &msg_report);
 
 // Delay between sending status messages
 const byte report_delay_ms = 10;
@@ -16,9 +30,8 @@ void setup()
 {
   last_report_ms = 0;
   nh.initNode();
-  reportPub = nh.advertise<autonomous_car_arduino_msgs::ArduinoReport>("hardwareReport", 100);
-  commandSub = nh.subscribe("hardwareCommand", 1, &commandCallback)
-  nh.advertise(chatter);
+  nh.advertise(reporter);
+  nh.subscribe(commander);
 }
 
 void loop()
@@ -26,14 +39,9 @@ void loop()
   if(millis() >= last_report_ms + report_delay_ms)
   {
     last_report_ms = millis();
-    msg_report = autonomous_car_arduino_msgs::ArduinoReport.empty();
-    reportSub.publish(&msg_report);
+    populateReport(&msg_report);
+    reporter.publish(&msg_report);
   }
   nh.spinOnce();
   delay(1);
-}
-
-void commandCallback(const sutonomous_car_arduino_msgs::ArduinoReport& msg)
-{
-  // Do something
 }
