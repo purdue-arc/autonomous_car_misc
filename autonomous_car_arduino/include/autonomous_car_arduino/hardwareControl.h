@@ -10,11 +10,11 @@ class HardwareControl
 {
 public:
   // Determine average value based off pointer to buffer
-  float getBufferAverage(float * buffer [BUFFER_SIZE]);
+  float getBufferAverage(float * buffer);
 
   // ROS callbacks
   void commandCallback(const autonomous_car_arduino_msgs::ArduinoCommand& msg_command);
-  void populateReport(autonomous_car_arduino_msgs::ArduinoReport *msg_report);
+  void populateReport(autonomous_car_arduino_msgs::ArduinoReport& msg_report);
 
   // Interrupts
   void updateMotorSpeed();

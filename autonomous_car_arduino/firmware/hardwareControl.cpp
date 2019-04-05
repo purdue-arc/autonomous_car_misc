@@ -19,13 +19,13 @@ const byte SERVO_FEEDBACK_PIN = 14;
 
 #define BUFFER_SIZE 10
 
-float getBufferAverage(float * buffer [BUFFER_SIZE])
+float getBufferAverage(float * buffer)
 {
   float averageEffort = 0;
   cli();
   for (byte i = 0; i < BUFFER_SIZE; i++)
   {
-    averageEffort += *buffer[i];
+    averageEffort += *(buffer + i);
   }
   sei();
   averageEffort /= BUFFER_SIZE;
@@ -37,15 +37,15 @@ void commandCallback(const autonomous_car_arduino_msgs::ArduinoCommand& msg_comm
   // Do something
 }
 
-void populateReport(autonomous_car_arduino_msgs::ArduinoReport *msg_report)
+void populateReport(autonomous_car_arduino_msgs::ArduinoReport& msg_report)
 {
   // Populate Message
-  msg_report->sensor_feedback.steering_angle = analogRead(SERVO_FEEDBACK_PIN);
-  msg_report->sensor_feedback.speed = getBufferAverage(&motor_feedback_buffer);
-  msg_report->radio_command.steering_angle = getBufferAverage(&steer_effort_buffer);
-  msg_report->radio_command.speed = getBufferAverage(&drive_effort_buffer);
-  msg_report->drive_battery_voltage = 0.0;
-  msg_report->computer_battery_voltage = 0.0;
+  msg_report.sensor_feedback.steering_angle = analogRead(SERVO_FEEDBACK_PIN);
+  msg_report.sensor_feedback.speed = getBufferAverage(&motor_feedback_buffer);
+  msg_report.radio_command.steering_angle = getBufferAverage(&steer_effort_buffer);
+  msg_report.radio_command.speed = getBufferAverage(&drive_effort_buffer);
+  msg_report.drive_battery_voltage = 0.0;
+  msg_report.computer_battery_voltage = 0.0;
 }
 
 void updateMotorSpeed()
@@ -112,7 +112,7 @@ void loop()
   if(millis() >= last_report_ms + report_delay_ms)
   {
     last_report_ms = millis();
-    populateReport(&msg_report);
+    populateReport(msg_report);
     reporter.publish(&msg_report);
   }
   if(millis() >= last_spin_ms + 1)
