@@ -4,7 +4,7 @@
 
 #include <I2CInterface.h>
 
-I2CInterface::I2CInterface(int address) {
+I2CInterface::I2CInterface(int address){
   i2cBus = 1;
   i2cAddress = address;
 }
