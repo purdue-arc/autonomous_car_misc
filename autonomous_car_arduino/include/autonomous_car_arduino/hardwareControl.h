@@ -1,7 +1,3 @@
-#include <ros.h>
-#include <autonomous_car_arduino_msgs/ArduinoCommand.h>
-#include <autonomous_car_arduino_msgs/ArduinoReport.h>
-
 #include <Arduino.h>
 #include <Servo.h>  // Uses timer 1
 #include <avr/interrupt.h>
@@ -9,11 +5,15 @@
 class HardwareControl
 {
 public:
+
+  HardwareControl();
+  ~HardwareControl();
+
   // Determine average value based off pointer to buffer
   float getBufferAverage(float * buffer);
 
   // ROS callbacks
-  void commandCallback(const autonomous_car_arduino_msgs::ArduinoCommand& msg_command);
+  void controlCar(const autonomous_car_arduino_msgs::ArduinoCommand& msg_command);
   void populateReport(autonomous_car_arduino_msgs::ArduinoReport& msg_report);
 
   // Interrupts
@@ -22,28 +22,15 @@ public:
   // Port D callback, PD4, pin 4, reciever drive
 
   // Pin assignments
-  const byte MOTOR_FEEDBACK_PIN;
-  const byte RECIEVER_DRIVE_PIN;
-  const byte MOTOR_SIGNAL_PIN;
-  const byte SERVO_SIGNAL_PIN;
-  const byte RECIEVER_STEER_PIN ;
-  const byte SERVO_FEEDBACK_PIN;
-
-  const byte BUFFER_SIZE;
-  const byte REPORT_DELAY_MS;
-  const byte SPIN_DELAY_MS;
+  static const byte MOTOR_FEEDBACK_PIN;
+  static const byte RECIEVER_DRIVE_PIN;
+  static const byte MOTOR_SIGNAL_PIN;
+  static const byte SERVO_SIGNAL_PIN;
+  static const byte RECIEVER_STEER_PIN ;
+  static const byte SERVO_FEEDBACK_PIN;
+  static const byte BUFFER_SIZE;
 
 private:
-  // ROS stuff
-  ros::NodeHandle nh;
-  autonomous_car_arduino_msgs::ArduinoReport msg_report;
-  ros::Subscriber<autonomous_car_arduino_msgs::ArduinoCommand> commander;
-  ros::Publisher reporter;
-
-  // Delay between sending status messages
-  unsigned long last_report_ms;
-  unsigned long last_spin_ms;
-
   volatile unsigned long last_motor_edge_us;
   volatile float motor_feedback_buffer [];
   volatile byte motor_buffer_index;

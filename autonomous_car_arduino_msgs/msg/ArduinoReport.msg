@@ -1,7 +1,7 @@
 Header header
 
 ackermann_msgs/AckermannDrive sensor_feedback
-ackermann_msgs/AckermannDrive radio_command
+ackermann_msgs/AckermannDrive radio_control
 
 float32 drive_battery_voltage
 float32 computer_battery_voltage
