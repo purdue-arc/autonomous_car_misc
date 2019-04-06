@@ -25,30 +25,32 @@ private:
 
   // Accel init
   static const uint8_t ACCEL_CONFIG = 0x1C;
-  static const uint8_t ACCEL_CONFIG_RANGE_250 = 0b00000000;
-  static const uint8_t ACCEL_CONFIG_RANGE_500 = 0b00001000;
-  static const uint8_t ACCEL_CONFIG_RANGE_1000 = 0b00010000;
-  static const uint8_t ACCEL_CONFIG_2000 = 0b00011000;
+  static const uint8_t ACCEL_CONFIG_RANGE_2 = 0b00000000;
+  static const uint8_t ACCEL_CONFIG_RANGE_4 = 0b00001000;
+  static const uint8_t ACCEL_CONFIG_RANGE_8 = 0b00010000;
+  static const uint8_t ACCEL_CONFIG_16 = 0b00011000;
 
-  //gyro
-  // 1B: bits 4 and 3
-  // 0, 1, 2, 3:
-  // 250, 500, 1000, 2000
+  // Burst read
+  static const uint8_t IMU_BURST_REGISTER = 0x3B;
+  static const uint8_t IMU_BURST_BYTES = 14;
 
+  // Accel read
+  static const uint8_t ACCEL_REGISTER_X2 = 0x3B;
+  static const uint8_t ACCEL_REGISTER_X1 = 0x3C;
+  static const uint8_t ACCEL_REGISTER_Y2 = 0x3D;
+  static const uint8_t ACCEL_REGISTER_Y1 = 0x3E;
+  static const uint8_t ACCEL_REGISTER_Z2 = 0x3F;
+  static const uint8_t ACCEL_REGISTER_Z1 = 0x40;
 
-  // Accel
-  // read: 3B,3C,3D,3E,3F,40
+  // Temp read
+  static const uint8_t TEMP_REGISTER_2 = 0x41;
+  static const uint8_t TEMP_REGISTER_1 = 0x42;
 
-  // Temp
-  // 41,42
-  // = value / 340 + 36.53
-
-  // Gyro
-  // read: 43,44,45,46,47,48
-
-  // rate is reg 25
-
-  // register 27 has scale
-
-  // register 28 has scale
+  // Gyro read
+  static const uint8_t GYRO_REGISTER_X2 = 0x43;
+  static const uint8_t GYRO_REGISTER_X1 = 0x44;
+  static const uint8_t GYRO_REGISTER_Y2 = 0x45;
+  static const uint8_t GYRO_REGISTER_Y1 = 0x46;
+  static const uint8_t GYRO_REGISTER_Z2 = 0x47;
+  static const uint8_t GYRO_REGISTER_Z1 = 0x48;
 }
