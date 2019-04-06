@@ -1,34 +1,58 @@
-#include <MPU6050.h>
+#include <stdint.h>
+#include "I2CInterface.h"
 
 class MPU6050
 {
 public:
+
+  struct imu_data
+  {
+    double accelerometer_x_mps;
+    double accelerometer_y_mps;
+    double accelerometer_z_mps;
+    double temperature_deg_c;
+    double gyro_x_radps;
+    double gyro_y_radps;
+    double gyro_z_radps;
+  }
+
   MPU6050();
   ~MPU6050();
 
   void initGyro();
-  double[3] readGyro();
-  void calibrateGyro();
-
   void initAccel();
-  double[3] readAccel();
+
+  imu_data MPU6050::readIMU()
 private:
-  I2CInterface gyroHandle;
-  I2CInterface accelHandle;
+
+  double convertRawToEffort(uint8_t (&rawData) [], uint8_t startIndex);
+
+  I2CInterface imuHandle;
+  double gyroRange;
+  double accelRange;
+
+  // from gees to m/s
+  static const double ACCEL_CONSTANT_MPS = 9.81;
+  // from deg / s to rads / s
+  static const double GYRO_CONSTANT_RADPS = 57.2957795;
+
+  // from unknown to deg c
+  static const double TEMP_CONSTANT_DIV = 340;
+  static const double TEMP_CONSTANT_ADD = 36.53;
 
   // Gyro init
-  static const uint8_t GYRO_CONFIG = 0x1B;
+  static const uint8_t GYRO_CONFIG_REGISTER = 0x1B;
   static const uint8_t GYRO_CONFIG_RANGE_250 = 0b00000000;
   static const uint8_t GYRO_CONFIG_RANGE_500 = 0b00001000;
   static const uint8_t GYRO_CONFIG_RANGE_1000 = 0b00010000;
-  static const uint8_t GYRO_CONFIG_2000 = 0b00011000;
+  static const uint8_t GYRO_CONFIG_RANGE_2000 = 0b00011000;
 
   // Accel init
-  static const uint8_t ACCEL_CONFIG = 0x1C;
+  static const uint8_t ACCEL_CONFIG_REGISTER = 0x1C;
   static const uint8_t ACCEL_CONFIG_RANGE_2 = 0b00000000;
   static const uint8_t ACCEL_CONFIG_RANGE_4 = 0b00001000;
   static const uint8_t ACCEL_CONFIG_RANGE_8 = 0b00010000;
-  static const uint8_t ACCEL_CONFIG_16 = 0b00011000;
+  static const uint8_t ACCEL_CONFIG_RANGE_16 = 0b00011000;
 
   // Burst read
   static const uint8_t IMU_BURST_REGISTER = 0x3B;
