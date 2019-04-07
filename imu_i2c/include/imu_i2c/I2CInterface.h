@@ -1,7 +1,8 @@
-# include <linux/i2c-dev.h>
-# include <i2c/smbus.h>
-# include <errno.h>
-# include <sys/ioctl.h>
+#include <linux/i2c-dev.h>
+#include <i2c/smbus.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <stdint.h>
 
 class I2CInterface
 {
@@ -12,11 +13,12 @@ public:
   bool openDevice();
   void closeDevice();
 
-  int writeDevice();
-  int readDevice();
+  int readRegister();
+  int writeRegister();
+  int readBurst();
 
 private:
-  int fileHandle;
-  int i2cAddress;
-  int i2cBus;
+  int handle;
+  int address;
+  int bus;
 }

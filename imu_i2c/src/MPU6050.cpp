@@ -1,7 +1,7 @@
 #include <MPU6050.h>
 
-MPU6050::MPU6050() {
-  gyroHandle = I2CInterface();
+MPU6050::MPU6050(int address) {
+  gyroHandle = I2CInterface(address);
   initAccel();
   initGyro();
 }
@@ -19,7 +19,7 @@ void MPU6050::initAccel() {
 }
 
 imu_data MPU6050::readIMU() {
-  uint8_t burstData [IMU_BURST_BYTES] = {};
+  int8_t burstData [IMU_BURST_BYTES] = {};
   imuHandle.readBurst(IMU_BURST_REGISTER, IMU_BURST_BYTES, burstData);
 
   imu_data measurement;
@@ -37,7 +37,7 @@ imu_data MPU6050::readIMU() {
   return measurement;
 }
 
-double convertRawToEffort(uint8_t (&rawData) [], uint8_t startIndex)
+double convertRawToEffort(const uint8_t (&rawData) [], uint8_t startIndex)
 {
   int16_t raw16 = ((int16_t)rawData(startIndex) << 8) | rawData(++startIndex);
   return ((double)raw16) / INT16_MAX

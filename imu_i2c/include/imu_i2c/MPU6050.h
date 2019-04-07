@@ -16,7 +16,7 @@ public:
     double gyro_z_radps;
   }
 
-  MPU6050();
+  MPU6050(int address);
   ~MPU6050();
 
   void initGyro();
@@ -25,7 +25,7 @@ public:
   imu_data MPU6050::readIMU()
 private:
 
-  double convertRawToEffort(uint8_t (&rawData) [], uint8_t startIndex);
+  double convertRawToEffort(const uint8_t (&rawData) [], uint8_t startIndex);
 
   I2CInterface imuHandle;
   double gyroRange;
