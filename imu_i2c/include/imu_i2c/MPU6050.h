@@ -16,7 +16,7 @@ public:
     double gyro_z_radps;
   };
 
-  MPU6050(int address);
+  MPU6050(int bus, int address);
   ~MPU6050();
 
   void initGyro();

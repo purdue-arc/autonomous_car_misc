@@ -3,10 +3,10 @@
 
 #include <I2CInterface.h>
 
-I2CInterface::I2CInterface(int addr)
+I2CInterface::I2CInterface(int bus, int address)
 {
-  bus = 1;
-  address = addr;
+  this->bus = bus;
+  this->address = address;
 }
 
 I2CInterface::~I2CInterface()

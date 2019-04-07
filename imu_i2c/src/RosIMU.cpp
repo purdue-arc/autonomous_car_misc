@@ -1,7 +1,7 @@
 #include "RosIMU.h"
 
 RosIMU::RosIMU() :
-  imuHandle(7)
+  imuHandle(8, 68)
 {
   ros::NodeHandle nh;
   imuPublisher = nh.advertise<sensor_msgs::Imu>("imu", 1000);

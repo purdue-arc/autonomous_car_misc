@@ -14,7 +14,7 @@ extern "C" {
 class I2CInterface
 {
 public:
-  I2CInterface(int addr);
+  I2CInterface(int bus, int address);
   ~I2CInterface();
 
   bool openDevice();

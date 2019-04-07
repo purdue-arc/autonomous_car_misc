@@ -1,7 +1,7 @@
 #include <MPU6050.h>
 
-MPU6050::MPU6050(int address) :
-  imuHandle(address)
+MPU6050::MPU6050(int bus, int address) :
+  imuHandle(bus, address)
 {
   initAccel();
   initGyro();
