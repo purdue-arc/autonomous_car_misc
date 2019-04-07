@@ -22,7 +22,7 @@ public:
   void initGyro();
   void initAccel();
 
-  imu_data readIMU();
+  struct imu_data readIMU();
 private:
 
   double convertRawToEffort(const uint8_t (&rawData) [], uint8_t startIndex);
@@ -32,13 +32,13 @@ private:
   double accelRange;
 
   // from gees to m/s
-  static const double ACCEL_CONSTANT_MPS = 9.81;
+  static constexpr double ACCEL_CONSTANT_MPS = 9.81;
   // from deg / s to rads / s
-  static const double GYRO_CONSTANT_RADPS = 57.2957795;
+  static constexpr double GYRO_CONSTANT_RADPS = 57.2957795;
 
   // from unknown to deg c
-  static const double TEMP_CONSTANT_DIV = 340;
-  static const double TEMP_CONSTANT_ADD = 36.53;
+  static constexpr double TEMP_CONSTANT_DIV = 340;
+  static constexpr double TEMP_CONSTANT_ADD = 36.53;
 
   // Gyro init
   static const uint8_t GYRO_CONFIG_REGISTER = 0x1B;

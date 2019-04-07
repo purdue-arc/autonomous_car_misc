@@ -19,11 +19,11 @@ void MPU6050::initAccel() {
   accelRange = 16;
 }
 
-imu_data MPU6050::readIMU() {
+struct imu_data MPU6050::readIMU() {
   int8_t burstData [IMU_BURST_BYTES] = {};
   imuHandle.readBurst(IMU_BURST_REGISTER, IMU_BURST_BYTES, burstData);
 
-  imu_data measurement;
+  struct imu_data measurement;
 
   measurement.accelerometer_x_mps = convertRawToEffort(burstData, ACCEL_REGISTER_X2 - IMU_BURST_REGISTER) * accelRange * ACCEL_CONSTANT_MPS;
   measurement.accelerometer_y_mps = convertRawToEffort(burstData, ACCEL_REGISTER_Y2 - IMU_BURST_REGISTER) * accelRange * ACCEL_CONSTANT_MPS;

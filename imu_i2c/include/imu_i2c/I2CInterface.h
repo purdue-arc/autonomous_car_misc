@@ -1,7 +1,8 @@
-#include <linux/i2c-dev.h>
-//#include <i2c/smbus.h>
-//#include <i2c-tools/i2c-dev.h>
-#include <errno.h>
+#include <linux/i2c-dev.h>  // I2C commands
+#include <i2c/smbus.h>      // SMBUS commands
+#include <fcntl.h>          // Open and O_RDWR
+#include <unistd.h>         // Close
+#include <errno.h>      
 #include <sys/ioctl.h>
 #include <stdint.h>
 #include <stdio.h>
