@@ -48,7 +48,7 @@ bool I2CInterface::writeRegister(uint8_t reg, uint8_t val)
   int retval = i2c_smbus_write_byte_data(handle, reg, val);
   if (retval < 0)
   {
-      printf("MPU6050 Write error: %d", errno);
+      perror("MPU6050 Write error");
   }
   return retval == 0;
 }
@@ -58,7 +58,7 @@ int I2CInterface::readRegister(uint8_t reg)
   int retval = i2c_smbus_read_byte_data(handle, reg);
   if (retval < 0)
   {
-    printf("MPU6050 Read error: %d", errno);
+    perror("MPU6050 Read error");
   }
   return retval;
 }
@@ -68,7 +68,7 @@ bool I2CInterface::readBurst(uint8_t reg, uint8_t num, uint8_t * vals)
   int retval = i2c_smbus_read_i2c_block_data(handle, reg, num, vals);
   if (retval < 0)
   {
-    printf("MPU6050 Read error: %d", errno);
+    perror("MPU6050 Block read error");
   }
   return retval == num;
 }
