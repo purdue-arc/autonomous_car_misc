@@ -66,7 +66,10 @@ set(${PROJECT_NAME}_SOURCES
 
 add_executable(i2c_imu_node ${${PROJECT_NAME}_SOURCES})
 
-target_link_libraries(i2c_imu_node ${catkin_LIBRARIES})
+target_link_libraries(i2c_imu_node
+  i2c
+  ${catkin_LIBRARIES}
+)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
