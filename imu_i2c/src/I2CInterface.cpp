@@ -3,10 +3,10 @@
 
 #include <I2CInterface.h>
 
-I2CInterface::I2CInterface(int address)
+I2CInterface::I2CInterface(int addr)
 {
-  this.bus = 1;
-  this.address = address;
+  bus = 1;
+  address = addr;
 }
 
 I2CInterface::~I2CInterface()
@@ -16,16 +16,16 @@ I2CInterface::~I2CInterface()
 
 bool I2CInterface::openDevice()
 {
-  char fileNameBuffer[32];
-  sprintf(filenameBuffer, "/dev/i2c-%d", i2cBus);
-  this.handle = open(filenameBuffer, O_RDWR);
-  if (this.handle < 0)
+  char filenameBuffer[32];
+  sprintf(filenameBuffer, "/dev/i2c-%d", bus);
+  handle = open(filenameBuffer, O_RDWR);
+  if (handle < 0)
   {
     // could not open the bus
     printf("Failed to open the bus.\n");
     return false;
    }
-  if (ioctl(fileHandle, I2C_SLAVE, i2cAddress) < 0)
+  if (ioctl(handle, I2C_SLAVE, address) < 0)
   {
     // could not open the device on the bus
     printf("Failed to acquire bus access and/or talk to slave.\n");
@@ -36,16 +36,16 @@ bool I2CInterface::openDevice()
 
 void I2CInterface::closeDevice()
 {
-  if(this.handle > 0)
+  if(handle > 0)
   {
-    close(this.handle);
-    this.handle = -1;
+    close(handle);
+    handle = -1;
   }
 }
 
 bool I2CInterface::writeRegister(uint8_t reg, uint8_t val)
 {
-  int retval = i2c_smbus_write_byte_data(this.handle, reg, val);
+  int retval = i2c_smbus_write_byte_data(handle, reg, val);
   if (retval < 0)
   {
       printf("MPU6050 Write error: %d", errno);
@@ -55,7 +55,7 @@ bool I2CInterface::writeRegister(uint8_t reg, uint8_t val)
 
 int I2CInterface::readRegister(uint8_t reg)
 {
-  int retval = i2c_smbus_read_byte_data(this.handle, reg);
+  int retval = i2c_smbus_read_byte_data(handle, reg);
   if (retval < 0)
   {
     printf("MPU6050 Read error: %d", errno);
@@ -65,7 +65,7 @@ int I2CInterface::readRegister(uint8_t reg)
 
 bool I2CInterface::readBurst(uint8_t reg, uint8_t num, uint8_t * vals)
 {
-  int retval = i2c_smbus_read_i2c_block_data(this.handle, reg, num, vals);
+  int retval = i2c_smbus_read_i2c_block_data(handle, reg, num, vals);
   if (retval < 0)
   {
     printf("MPU6050 Read error: %d", errno);

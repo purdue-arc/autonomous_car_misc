@@ -14,7 +14,7 @@ public:
     double gyro_x_radps;
     double gyro_y_radps;
     double gyro_z_radps;
-  }
+  };
 
   MPU6050(int address);
   ~MPU6050();
@@ -22,7 +22,7 @@ public:
   void initGyro();
   void initAccel();
 
-  imu_data MPU6050::readIMU()
+  imu_data readIMU();
 private:
 
   double convertRawToEffort(const uint8_t (&rawData) [], uint8_t startIndex);
@@ -77,4 +77,4 @@ private:
   static const uint8_t GYRO_REGISTER_Y1 = 0x46;
   static const uint8_t GYRO_REGISTER_Z2 = 0x47;
   static const uint8_t GYRO_REGISTER_Z1 = 0x48;
-}
+};

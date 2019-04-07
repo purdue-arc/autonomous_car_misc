@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-include_directories(${ROS_LIB_DIR})
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+  ${ROS_LIB_DIR}
+)
 
 # Remove this if using an Arduino without native USB (eg, other than Leonardo)
 # add_definitions(-DUSB_CON)
