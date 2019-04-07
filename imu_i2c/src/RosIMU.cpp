@@ -15,6 +15,10 @@ void RosIMU::publishIMU(const ros::TimerEvent& e)
   const MPU6050::imu_data& data = imuHandle.readIMU();
 
   sensor_msgs::Imu imu_message;
+
+  imu_message.header.stamp = ros::Time::now();
+  imu_message.header.frame_id = "imu";
+
   imu_message.angular_velocity.x = data.accelerometer_x_mps;
   imu_message.angular_velocity.y = data.accelerometer_y_mps;
   imu_message.angular_velocity.z = data.accelerometer_z_mps;
