@@ -22,10 +22,10 @@ public:
   void initGyro();
   void initAccel();
 
-  struct imu_data readIMU();
+  imu_data readIMU();
 private:
 
-  double convertRawToEffort(const uint8_t (&rawData) [], uint8_t startIndex);
+  double convertRawToEffort(uint8_t * rawData, uint8_t startIndex);
 
   I2CInterface imuHandle;
   double gyroRange;

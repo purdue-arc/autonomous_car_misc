@@ -1,13 +1,13 @@
 #include <MPU6050.h>
 
-MPU6050::MPU6050(int address)
+MPU6050::MPU6050(int address) :
+  imuHandle(address)
 {
-  imuHandle = I2CInterface(address);
   initAccel();
   initGyro();
 }
 
-MPU6050::~MPU6050 = default();
+MPU6050::~MPU6050() = default;
 
 void MPU6050::initGyro() {
   imuHandle.writeRegister(GYRO_CONFIG_REGISTER, GYRO_CONFIG_RANGE_2000);
@@ -19,11 +19,11 @@ void MPU6050::initAccel() {
   accelRange = 16;
 }
 
-struct imu_data MPU6050::readIMU() {
-  int8_t burstData [IMU_BURST_BYTES] = {};
+MPU6050::imu_data MPU6050::readIMU() {
+  uint8_t burstData [IMU_BURST_BYTES] = {};
   imuHandle.readBurst(IMU_BURST_REGISTER, IMU_BURST_BYTES, burstData);
 
-  struct imu_data measurement;
+  MPU6050::imu_data measurement;
 
   measurement.accelerometer_x_mps = convertRawToEffort(burstData, ACCEL_REGISTER_X2 - IMU_BURST_REGISTER) * accelRange * ACCEL_CONSTANT_MPS;
   measurement.accelerometer_y_mps = convertRawToEffort(burstData, ACCEL_REGISTER_Y2 - IMU_BURST_REGISTER) * accelRange * ACCEL_CONSTANT_MPS;
@@ -38,7 +38,7 @@ struct imu_data MPU6050::readIMU() {
   return measurement;
 }
 
-double convertRawToEffort(const uint8_t (&rawData) [], uint8_t startIndex)
+double MPU6050::convertRawToEffort(uint8_t * rawData, uint8_t startIndex)
 {
   int16_t raw16 = ((int16_t)rawData[startIndex] << 8) | rawData[++startIndex];
   return ((double)raw16) / INT16_MAX;
