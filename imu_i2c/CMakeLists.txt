@@ -59,7 +59,8 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/autonomous_car_misc_node.cpp)
 
 set(${PROJECT_NAME}_SOURCES
-    src/i2c_imu_node.cpp
+    src/imu_i2c_node.cpp
+    src/RosIMU.cpp
     src/MPU6050.cpp
     src/I2CInterface.cpp
 )
