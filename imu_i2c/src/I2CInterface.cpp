@@ -22,13 +22,13 @@ bool I2CInterface::openDevice()
   if (handle < 0)
   {
     // could not open the bus
-    printf("Failed to open the bus.\n");
+    perror("Failed to open the bus");
     return false;
    }
   if (ioctl(handle, I2C_SLAVE, address) < 0)
   {
     // could not open the device on the bus
-    printf("Failed to acquire bus access and/or talk to slave.\n");
+    perror("Failed to acquire bus access and/or talk to slave");
     return false;
   }
   return true;

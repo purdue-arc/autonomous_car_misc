@@ -5,7 +5,7 @@ RosIMU::RosIMU() :
 {
   ros::NodeHandle nh;
   imuPublisher = nh.advertise<sensor_msgs::Imu>("imu", 1000);
-  ros::Timer imuTimer = nh.createTimer(ros::Duration(0.01), &RosIMU::publishIMU, this);
+  imuTimer = nh.createTimer(ros::Duration(0.01), &RosIMU::publishIMU, this);
 }
 
 RosIMU::~RosIMU() = default;
