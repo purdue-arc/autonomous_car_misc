@@ -8,7 +8,7 @@ public:
   RosIMU();
   ~RosIMU();
 private:
-  publishIMU(const ros::TimerEvent& e);
+  void publishIMU(const ros::TimerEvent& e);
 
   ros::NodeHandle nh;
   ros::Timer imuTimer;

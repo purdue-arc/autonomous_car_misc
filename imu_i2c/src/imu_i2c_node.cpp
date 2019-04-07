@@ -3,7 +3,9 @@
 
 int main(int argc, char **argv)
 {
-  RosIMU ros_imu = RosIMU;
+  ros::init(argc, argv, "i2c_imu_node");
+
+  RosIMU ros_imu = RosIMU();
 
   //ros::Rate loop_rate(200);
 
