@@ -3,6 +3,7 @@
 MPU6050::MPU6050(int bus, int address) :
   imuHandle(bus, address)
 {
+  imuHandle.openDevice();
   initAccel();
   initGyro();
 }
