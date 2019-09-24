@@ -2,6 +2,7 @@
 //  https://www.kernel.org/doc/Documentation/i2c/smbus-protocol
 
 #include <I2CInterface.h>
+#include <stdio.h>
 
 I2CInterface::I2CInterface(int bus, int address)
 {

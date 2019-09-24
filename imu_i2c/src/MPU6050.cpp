@@ -3,9 +3,18 @@
 MPU6050::MPU6050(int bus, int address) :
   imuHandle(bus, address)
 {
-  imuHandle.openDevice();
-  initAccel();
-  initGyro();
+  if (imuHandle.openDevice())
+  {
+    printf("device opened successfully\n");
+    initAccel();
+    printf("accel intitialized\n");
+    initGyro();
+    printf("gyro intitialized\n");
+  }
+  else
+  {
+    printf("device open failure\n");
+  }
 }
 
 MPU6050::~MPU6050() = default;
