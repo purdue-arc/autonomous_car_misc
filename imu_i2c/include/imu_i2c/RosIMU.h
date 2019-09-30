@@ -10,9 +10,9 @@ public:
 private:
   void publishIMU(const ros::TimerEvent& e);
 
-  ros::NodeHandle nh;
-  ros::Timer imuTimer;
-  ros::Publisher imuPublisher;
+  ros::NodeHandle m_nh;
+  ros::Timer m_imuTimer;
+  ros::Publisher m_imuPublisher;
 
-  MPU6050 imuHandle;
+  MPU6050 m_imuHandle;
 };
