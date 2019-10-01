@@ -1,4 +1,4 @@
-#include "RosIMU.h"
+#include <imu_i2c/RosIMU.h>
 
 RosIMU::RosIMU() :
   m_nh(),

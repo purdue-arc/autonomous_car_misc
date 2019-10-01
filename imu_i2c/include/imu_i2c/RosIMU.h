@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Imu.h>
-#include "MPU6050.h"
+#include <imu_i2c/MPU6050.h>
 
 class RosIMU
 {

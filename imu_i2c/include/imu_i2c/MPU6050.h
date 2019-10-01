@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "I2CInterface.h"
+#include <imu_i2c/I2CInterface.h>
 
 class MPU6050
 {
@@ -19,13 +19,15 @@ public:
   MPU6050(int bus, int address);
   ~MPU6050();
 
+  void resetChip();
+  void wakeChip();
   void initGyro();
   void initAccel();
 
   imu_data readIMU();
 private:
 
-  double convertRawToEffort(uint8_t * rawData, uint8_t startIndex);
+  double decodeBurstData(uint8_t * rawData, uint8_t startIndex);
 
   I2CInterface imuHandle;
   double gyroRange;
@@ -39,6 +41,12 @@ private:
   // from unknown to deg c
   static constexpr double TEMP_CONSTANT_DIV = 340;
   static constexpr double TEMP_CONSTANT_ADD = 36.53;
+
+  // Chip init
+  static const uint8_t CHIP_CONFIG_REGISTER = 0x6B;
+  static const uint8_t CHIP_CONFIG_RESET= 0b10000000;
+  static const uint8_t CHIP_CONFIG_SLEEP = 0b01000000;
+  static const uint8_t CHIP_CONFIG_AWAKE = 0b00000000;
 
   // Gyro init
   static const uint8_t GYRO_CONFIG_REGISTER = 0x1B;

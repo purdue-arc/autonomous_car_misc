@@ -25,7 +25,7 @@ public:
   bool readBurst(uint8_t reg, uint8_t num, uint8_t * vals);
 
 private:
-  int handle;
-  int address;
-  int bus;
+  int m_handle;
+  int m_address;
+  int m_bus;
 };
