@@ -4,7 +4,6 @@
 class MPU6050
 {
 public:
-
   struct imu_data
   {
     double accelerometer_x_mps;
@@ -25,9 +24,9 @@ public:
   void initAccel();
 
   imu_data readIMU();
-private:
 
-  double decodeBurstData(uint8_t * rawData, uint8_t startIndex);
+private:
+  double decodeBurstData(uint8_t* rawData, uint8_t startIndex);
 
   I2CInterface imuHandle;
   double gyroRange;
@@ -44,7 +43,7 @@ private:
 
   // Chip init
   static const uint8_t CHIP_CONFIG_REGISTER = 0x6B;
-  static const uint8_t CHIP_CONFIG_RESET= 0b10000000;
+  static const uint8_t CHIP_CONFIG_RESET = 0b10000000;
   static const uint8_t CHIP_CONFIG_SLEEP = 0b01000000;
   static const uint8_t CHIP_CONFIG_AWAKE = 0b00000000;
 

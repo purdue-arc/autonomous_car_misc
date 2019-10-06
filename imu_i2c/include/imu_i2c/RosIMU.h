@@ -7,6 +7,7 @@ class RosIMU
 public:
   RosIMU();
   ~RosIMU();
+
 private:
   void publishIMU(const ros::TimerEvent& e);
 

@@ -25,7 +25,7 @@ bool I2CInterface::openDevice()
     // could not open the bus
     perror("Failed to open the bus");
     return false;
-   }
+  }
   if (ioctl(m_handle, I2C_SLAVE, m_address) < 0)
   {
     // could not open the device on the bus
@@ -37,7 +37,7 @@ bool I2CInterface::openDevice()
 
 void I2CInterface::closeDevice()
 {
-  if(m_handle > 0)
+  if (m_handle > 0)
   {
     close(m_handle);
     m_handle = -1;
@@ -49,7 +49,7 @@ bool I2CInterface::writeRegister(uint8_t reg, uint8_t val)
   int retval = i2c_smbus_write_byte_data(m_handle, reg, val);
   if (retval < 0)
   {
-      perror("MPU6050 Write error");
+    perror("MPU6050 Write error");
   }
   return retval == 0;
 }
@@ -64,7 +64,7 @@ int I2CInterface::readRegister(uint8_t reg)
   return retval;
 }
 
-bool I2CInterface::readBurst(uint8_t reg, uint8_t num, uint8_t * vals)
+bool I2CInterface::readBurst(uint8_t reg, uint8_t num, uint8_t* vals)
 {
   int retval = i2c_smbus_read_i2c_block_data(m_handle, reg, num, vals);
   if (retval < 0)

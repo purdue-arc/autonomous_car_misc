@@ -1,10 +1,6 @@
 #include <imu_i2c/RosIMU.h>
 
-RosIMU::RosIMU() :
-  m_nh(),
-  m_imuTimer(),
-  m_imuPublisher(),
-  m_imuHandle(8, 0x68)
+RosIMU::RosIMU() : m_nh(), m_imuTimer(), m_imuPublisher(), m_imuHandle(8, 0x68)
 {
   m_imuTimer = m_nh.createTimer(ros::Duration(0.01), &RosIMU::publishIMU, this);
   m_imuPublisher = m_nh.advertise<sensor_msgs::Imu>("imu", 10);
